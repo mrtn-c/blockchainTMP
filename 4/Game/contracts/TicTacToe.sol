@@ -35,11 +35,13 @@ contract TicTacToe is Game {
                 }
             }
             inicio = true;
-        }
+        } //q raro con el require deberia andar igual
 
         require(row < 3 && col < 3, "Coordenadas invalidas");
         require(msg.sender == players[next], "No es tu turno");
-        require(tablero[row][col] == address(0), "La casilla ya esta ocupada"); //no se porque no lo toma correctamente el test.
+        if(tablero[row][col]!=address(0)){
+            revert("movimiento invalido");
+        } //no se porque no lo toma correctamente el test.
 
 
         tablero[row][col] = msg.sender;
